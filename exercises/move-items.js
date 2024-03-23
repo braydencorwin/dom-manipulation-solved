@@ -13,6 +13,8 @@
 
 // Your code goes here...
 
+const allItems = document.querySelectorAll('.item');
+console.log(allItems)
 
 
 /**
@@ -23,7 +25,8 @@
  * */
 
 // Your code goes here
-
+const main = document.getElementById('main');
+console.log(main.childNodes)
 
 
 /**
@@ -34,9 +37,9 @@
  */
 
 // Your code goes here
+const favs = document.getElementById('favs');
 
-
-
+console.log(favs)
 /**
  * @task
  * Create the updateCollections(id, direction) function that follows the list of requirements:
@@ -48,6 +51,16 @@
 
 // Your code goes here
 
+function updateCollections(id, direction){
+    const elm = document.getElementById(id);
+    if(direction == 'toMain'){
+        main.appendChild(elm);
+        favs.removeChild(elm);
+    } else{
+        favs.appendChild(elm);
+        main.removeChild(elm);
+    }
+};
 
 
 /**
@@ -66,4 +79,10 @@
 
 // Your code goes here...
 
+allItems.forEach(e => {
+    e.addEventListener("click", () => {
+        const direction = e.parentNode.id == "main" ? 'toFavs' : 'toMain';
+        updateCollections(e.id, direction);
+    })
+});
 
