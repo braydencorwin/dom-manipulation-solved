@@ -44,9 +44,11 @@
 // Your code goes here...
 
 
-const favs = {
-    ids: []
-};
+const favIds = {ids: []};
+
+localStorage.setItem('favorites', JSON.stringify(favIds))
+
+
 
 const rawArr = localStorage.getItem("favorites");
 const favsArr = JSON.parse(rawArr);
