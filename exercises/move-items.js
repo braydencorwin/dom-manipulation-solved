@@ -2,7 +2,7 @@
  * SORTING NODES WITHIN A CONTAINER
  * Please, make sure to read the following files in the exercises-info folder before you start
  * * 01 SelectNodes.md
-*/
+ */
 
 /**
  * @task
@@ -13,9 +13,7 @@
 
 // Your code goes here...
 
-const allItems = document.querySelectorAll('.item');
-console.log(allItems)
-
+const allItems = document.querySelectorAll(".item");
 
 /**
  * @task
@@ -25,9 +23,7 @@ console.log(allItems)
  * */
 
 // Your code goes here
-const main = document.getElementById('main');
-console.log(main.childNodes)
-
+const main = document.getElementById("main");
 
 /**
  * @task
@@ -37,9 +33,8 @@ console.log(main.childNodes)
  */
 
 // Your code goes here
-const favs = document.getElementById('favs');
+const favs = document.getElementById("favs");
 
-console.log(favs)
 /**
  * @task
  * Create the updateCollections(id, direction) function that follows the list of requirements:
@@ -51,17 +46,24 @@ console.log(favs)
 
 // Your code goes here
 
-function updateCollections(id, direction){
-    const elm = document.getElementById(id);
-    if(direction == 'toMain'){
-        main.appendChild(elm);
-        favs.removeChild(elm);
-    } else{
-        favs.appendChild(elm);
-        main.removeChild(elm);
-    }
-};
+function updateCollections(id, direction) {
+  const element = document.getElementById(id);
+  if (element) {
+    element
+      .querySelector("i")
+      .classList.toggle("fa-heart-crack", direction === "toFavs");
+    element
+      .querySelector("i")
+      .classList.toggle("fa-heart-circle-plus", direction === "toMain");
+  }
 
+  const targetParent =
+    direction === "toMain"
+      ? document.getElementById("main")
+      : document.getElementById("favs");
+
+  targetParent.appendChild(element);
+}
 
 /**
  * @task
@@ -79,10 +81,9 @@ function updateCollections(id, direction){
 
 // Your code goes here...
 
-allItems.forEach(e => {
-    e.addEventListener("click", () => {
-        const direction = e.parentNode.id == "main" ? 'toFavs' : 'toMain';
-        updateCollections(e.id, direction);
-    })
+allItems.forEach((e) => {
+  e.addEventListener("click", () => {
+    const direction = e.parentNode.id == "main" ? "toFavs" : "toMain";
+    updateCollections(e.id, direction);
+  });
 });
-

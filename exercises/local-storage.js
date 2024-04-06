@@ -23,10 +23,6 @@
  * * Make all the items that are listed in the favorites LS save the red background color when the page is reloaded
  */
 
-
-
-
-
 /**
  * @hint
  * Here is a plan of how you can structure your code. You can follow it or choose your own way to go
@@ -42,57 +38,47 @@
  */
 
 // Your code goes here...
+const favIds = { ids: [] };
 
-
-const favIds = {ids: []};
-
-localStorage.setItem('favorites', JSON.stringify(favIds))
-
-
+if (localStorage.getItem('favorites') === null) {
+  localStorage.setItem("favorites", JSON.stringify(favIds));
+}
 
 const rawArr = localStorage.getItem("favorites");
 const favsArr = JSON.parse(rawArr);
 
 const callbackFn = (e) => {
-    const item = e.target;
- 
-    console.log(favsArr);
-    console.log(item.id)
-    console.log(item.classList)
+  const item = e.target;
 
+  console.log(favsArr);
+  console.log(item.id);
+  console.log(item.classList);
 
-    if (Array.from(item.classList).includes('card')) {
-        if (favsArr.ids.includes(item.id)) {
-          item.style.backgroundColor = 'white';
-          const index = favsArr.ids.indexOf(item.id)
-          if(index !== -1){
-            favsArr.ids.splice(index, 1);
-          }
-            
-        } else {
-          item.style.backgroundColor = 'red';
-          favsArr.ids.push(item.id);
-        }
-      };
-    localStorage.setItem('favorites', JSON.stringify(favsArr));
-    //console.log(favsArr)
+  if (Array.from(item.classList).includes("card")) {
+    if (favsArr.ids.includes(item.id)) {
+      item.style.backgroundColor = "white";
+      const index = favsArr.ids.indexOf(item.id);
+      if (index !== -1) {
+        favsArr.ids.splice(index, 1);
+      }
+    } else {
+      item.style.backgroundColor = "red";
+      favsArr.ids.push(item.id);
+    }
+  }
+  localStorage.setItem("favorites", JSON.stringify(favsArr));
+  //console.log(favsArr)
 };
 
-
-
-
 const setColor = () => {
-    favsArr.ids.map((x) => {
-        const box = document.getElementById(x);
-        box.style.backgroundColor = 'red';
-    })
-}
+  favsArr.ids.map((x) => {
+    const box = document.getElementById(x);
+    box.style.backgroundColor = "red";
+  });
+};
 
-setColor()
+setColor();
 
+const container = document.getElementsByClassName("cardsContainer")[0];
 
-const container = document.getElementsByClassName('cardsContainer')[0];
-
-container.addEventListener('click', callbackFn);
-
-
+container.addEventListener("click", callbackFn);
